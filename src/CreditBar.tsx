@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * SaliTech Credit Bar
+ * SaliTech Credit Bar (Standalone with Auto-Font)
  * ============================================================
  * @author SaliTech
  * @website https://salitech.ir
@@ -9,10 +9,6 @@
 
 import { useEffect, useRef } from "react";
 
-// ==========================================
-// Types
-// ==========================================
-
 export interface CreditBarProps {
   href?: string;
   text?: string;
@@ -20,10 +16,6 @@ export interface CreditBarProps {
   accentColor?: string;
   className?: string;
 }
-
-// ==========================================
-// Component
-// ==========================================
 
 export const CreditBar = ({
   href = "https://salitech.ir",
@@ -34,7 +26,6 @@ export const CreditBar = ({
 }: CreditBarProps) => {
   const styleRef = useRef<HTMLStyleElement | null>(null);
 
-  // ============ Inject styles once ============
   useEffect(() => {
     const existingStyle = document.getElementById("salitech-credit-bar-styles");
     if (existingStyle) {
@@ -45,6 +36,9 @@ export const CreditBar = ({
     const style = document.createElement("style");
     style.id = "salitech-credit-bar-styles";
     style.textContent = `
+      /* ============ Auto Load Vazirmatn Font ============ */
+      @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
+
       /* ============ Credit Bar Root ============ */
       .stc-credit-bar {
         display: block;
@@ -58,8 +52,9 @@ export const CreditBar = ({
         transition: all 0.5s ease;
         cursor: pointer;
         text-decoration: none;
-        font-family: inherit;
+        font-family: 'Vazirmatn', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
         box-sizing: border-box;
+        direction: rtl;
       }
 
       @media (min-width: 768px) {
@@ -226,13 +221,8 @@ export const CreditBar = ({
       className={`stc-credit-bar ${className}`.trim()}
       style={cssVars}
     >
-      {/* Background Glow */}
       <div className="stc-credit-bar__glow" aria-hidden="true" />
-
-      {/* Sweep Line */}
       <div className="stc-credit-bar__sweep" aria-hidden="true" />
-
-      {/* Content */}
       <div className="stc-credit-bar__content">
         <p className="stc-credit-bar__text">
           {text} <span className="stc-credit-bar__brand">{brand}</span>
